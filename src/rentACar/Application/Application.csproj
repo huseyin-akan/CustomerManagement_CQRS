@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Features\burdan kopyala\**" />
+    <Compile Remove="Features\Transmissions\**" />
+    <Compile Remove="Features\Users\Tests\**" />
+    <EmbeddedResource Remove="Features\burdan kopyala\**" />
+    <EmbeddedResource Remove="Features\Transmissions\**" />
+    <EmbeddedResource Remove="Features\Users\Tests\**" />
+    <None Remove="Features\burdan kopyala\**" />
+    <None Remove="Features\Transmissions\**" />
+    <None Remove="Features\Users\Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.0" />
+	<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\corePackages\Core.Application\Core.Application.csproj" />
+    <ProjectReference Include="..\..\corePackages\Core.CrossCuttingConcerns\Core.CrossCuttingConcerns.csproj" />
+    <ProjectReference Include="..\..\corePackages\Core.Mailing\Core.Mailing.csproj" />
+    <ProjectReference Include="..\..\corePackages\Core.Persistence\Core.Persistence.csproj" />
+    <ProjectReference Include="..\..\corePackages\Core.Security\Core.Security.csproj" />
+    <ProjectReference Include="..\..\corePackages\Core.Utilities\Core.Utilities.csproj" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\CourtCases\Models\" />
+    <Folder Include="Features\CourtCases\Queries\" />
+    <Folder Include="Features\CourtCases\Tests\" />
+    <Folder Include="Features\burdan kopyalayalim\Models\" />
+    <Folder Include="Features\burdan kopyalayalim\Profiles\" />
+    <Folder Include="Features\burdan kopyalayalim\Queries\" />
+    <Folder Include="Features\burdan kopyalayalim\Rules\" />
+    <Folder Include="Features\burdan kopyalayalim\Tests\" />
+    <Folder Include="Features\burdan kopyalayalim\Dtos\" />
+    <Folder Include="Features\burdan kopyalayalim\Commands\" />
+    <Folder Include="Features\Users\Queries\" />
+  </ItemGroup>
+
+</Project>
