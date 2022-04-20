@@ -1,7 +1,6 @@
 ﻿using Application.Features.Users.Dtos;
 using Application.Features.Users.Rules;
 using Application.Services;
-using Application.Services.AuthService;
 using AutoMapper;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Utilities.Messages;
@@ -24,18 +23,15 @@ namespace Application.Features.Users.Commands.LoginUser
         {
             private readonly IMapper _mapper;
             private readonly UserBusinessRules _userBusinessRules;
-            private readonly IAuthService _authService;
             private readonly IIdentityService _identityService;
 
             public LoginUserCommandHandler(
                 IMapper mapper,
                 UserBusinessRules userBusinessRules,
-                IAuthService authService,
                 IIdentityService identityService)
             {
                 _mapper = mapper;
                 _userBusinessRules = userBusinessRules;
-                _authService = authService;
                 _identityService = identityService;
             }
             public async Task<LoginUserDto> Handle(LoginUserCommand request, CancellationToken cancellationToken)
@@ -47,14 +43,14 @@ namespace Application.Features.Users.Commands.LoginUser
                     throw new BusinessException(Messages.UserNotFound);
                 }
 
-                if (await _identityService.CheckPasswordAsync(userToCheck, request.Password))
+                if ((await _identityService.CheckPasswordAsync(userToCheck, request.Password)) != true)
                 {
                     throw new BusinessException(Messages.PasswordError);
                 }
 
                 var userRoles = await _identityService.GetRolesAsync(userToCheck);
 
-                var accessToken = await _authService.CreateAccessToken(userToCheck);
+                var accessToken = await _identityService.CreateAccessToken(userToCheck);
 
                 return new LoginUserDto
                 {

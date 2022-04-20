@@ -2,21 +2,16 @@
 using Core.Application.Extensions;
 using Core.Application.Pipelines.Caching;
 using Core.CrossCuttingConcerns.Exceptions;
-using Core.Mailing;
-using Core.Mailing.MailKitImplementations;
 using Domain.Entities;
-using Microsoft.Extensions.DependencyInjection;
 using Persistence;
-using System.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Core.Security.Encryption;
 using TokenOptions = Core.Security.Jwt.TokenOptions;
 using Persistence.Contexts;
-using Persistence.Identity;
-using Core.Persistence.Identity;
+using Application.Services;
+using WebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,6 +63,7 @@ builder.Services.AddAuthentication(options => {
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 //Caching için in memory kullanmamızı sağlar.

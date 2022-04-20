@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Core.Security.Jwt;
 using Core.Utilities.Results;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -13,16 +14,18 @@ public class IdentityService : IIdentityService
     private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
     private readonly IAuthorizationService _authorizationService;
     private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly ITokenHelper _tokenHelper;
 
     public IdentityService(
         UserManager<ApplicationUser> userManager,
         IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
-        IAuthorizationService authorizationService, RoleManager<IdentityRole> roleManager)
+        IAuthorizationService authorizationService, RoleManager<IdentityRole> roleManager, ITokenHelper tokenHelper)
     {
         _userManager = userManager;
         _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
         _authorizationService = authorizationService;
         _roleManager = roleManager;
+        _tokenHelper = tokenHelper;
     }
 
     public async Task<string> GetUserNameAsync(string userId)
@@ -91,5 +94,12 @@ public class IdentityService : IIdentityService
     {
         var result = await _userManager.GetRolesAsync(user);
         return result;
+    }
+
+    public async Task<AccessToken> CreateAccessToken(ApplicationUser user)
+    {
+        var userRoles = await _userManager.GetRolesAsync(user);
+        var accessToken = await _tokenHelper.CreateToken(user, userRoles);
+        return accessToken;
     }
 }

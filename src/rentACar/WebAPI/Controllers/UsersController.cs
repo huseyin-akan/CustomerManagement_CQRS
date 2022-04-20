@@ -7,7 +7,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : BaseController
+    public class UsersController : BaseController
     {
 
         [HttpPost("login")]
@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterUserCommand command)
         {
             var registerResult = await Mediator.Send(command);
-            return Created("", registerResult);
+            return Ok(registerResult);
         }
     }
 }

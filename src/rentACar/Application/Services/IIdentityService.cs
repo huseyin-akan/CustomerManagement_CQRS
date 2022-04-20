@@ -1,5 +1,7 @@
-﻿using Core.Utilities.Results;
+﻿using Core.Security.Jwt;
+using Core.Utilities.Results;
 using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,5 +27,7 @@ namespace Application.Services
         Task<bool> CheckPasswordAsync(ApplicationUser user, string password);
 
         Task<IList<string>> GetRolesAsync(ApplicationUser user);
+
+        Task<AccessToken> CreateAccessToken(ApplicationUser user);
     }
 }

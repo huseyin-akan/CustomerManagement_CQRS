@@ -19,6 +19,9 @@ namespace Application.Features.Users.Commands.RegisterUser
         public string Email { get; set; }
         public string Password { get; set; }
         public string Username { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string TCNumber { get; set; }
 
         public class CreateUserCommandHandler : IRequestHandler<RegisterUserCommand, CreateUserDto>
         {
@@ -51,8 +54,7 @@ namespace Application.Features.Users.Commands.RegisterUser
                 if (!result.Result.Success)
                     throw new BusinessException("Kullanıcı oluşturulurken bir hata oluştu. Sonra tekrar deneyin.");
 
-
-                var userToReturn = _mapper.Map<CreateUserDto>(_identityService.FindByNameAsync(request.Username));
+                var userToReturn = _mapper.Map<CreateUserDto>(await _identityService.FindByNameAsync(request.Username));
                 return userToReturn;
             }
         }

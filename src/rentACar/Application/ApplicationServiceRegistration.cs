@@ -1,7 +1,6 @@
 ﻿using Application.Features.CourtCases.Rules;
 using Application.Features.Todos.Rules;
 using Application.Features.Users.Rules;
-using Application.Services.AuthService;
 using Core.Application.Pipelines.Caching;
 using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Validation;
@@ -36,7 +35,6 @@ namespace Application
             services.AddScoped<TodoBusinessRules>();
 
 
-            services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ITokenHelper, JwtHelper>();
             services.AddScoped<ICacheService, CacheService>();
 

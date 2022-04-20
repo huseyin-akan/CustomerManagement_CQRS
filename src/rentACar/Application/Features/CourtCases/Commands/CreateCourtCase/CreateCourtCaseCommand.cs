@@ -1,5 +1,7 @@
 ﻿using Application.Features.CourtCases.Dtos;
 using Application.Features.CourtCases.Rules;
+using Application.Helpers;
+using Application.Services;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
@@ -24,15 +26,17 @@ namespace Application.Features.CourtCases.Commands.CreateCourtCase
             private readonly IMapper _mapper;
             private readonly CourtCaseBusinessRules _courtCaseBusinessRules;
             private readonly ICourtCaseRepository _courtCaseRepository;
+            private readonly ICurrentUserService _currentUserService;
 
             public CreateCourtCaseCommandHandler(
                 IMapper mapper,
                 CourtCaseBusinessRules courtCaseBusinessRules,
-                ICourtCaseRepository courtCaseRepository)
+                ICourtCaseRepository courtCaseRepository, ICurrentUserService currentUserService)
             {
                 _mapper = mapper;
                 _courtCaseBusinessRules = courtCaseBusinessRules;
                 _courtCaseRepository = courtCaseRepository;
+                _currentUserService = currentUserService;
             }
             public async Task<CreateCourtCaseDto> Handle(CreateCourtCaseCommand request, CancellationToken cancellationToken)
             {
@@ -40,6 +44,7 @@ namespace Application.Features.CourtCases.Commands.CreateCourtCase
                 //TODO: check if this line of code is necessary, because we anyway have it in the constructor. and lets try a few more cont
                 //constructral issues.
                 caseToCreate.CaseStatus = CaseStatus.Open;
+                caseToCreate = CurrentUserHelper<CourtCase>.HandleCreateCommand(caseToCreate, _currentUserService);
 
                 var result = await this._courtCaseRepository.AddAsync(caseToCreate);
 
