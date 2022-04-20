@@ -1,6 +1,6 @@
 ﻿using Application.Services;
-using Core.Persistence.Identity;
 using Core.Utilities.Results;
+using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,15 +12,17 @@ public class IdentityService : IIdentityService
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
     private readonly IAuthorizationService _authorizationService;
+    private readonly RoleManager<IdentityRole> _roleManager;
 
     public IdentityService(
         UserManager<ApplicationUser> userManager,
         IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
-        IAuthorizationService authorizationService)
+        IAuthorizationService authorizationService, RoleManager<IdentityRole> roleManager)
     {
         _userManager = userManager;
         _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
         _authorizationService = authorizationService;
+        _roleManager = roleManager;
     }
 
     public async Task<string> GetUserNameAsync(string userId)
@@ -30,14 +32,8 @@ public class IdentityService : IIdentityService
         return user.UserName;
     }
 
-    public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
+    public async Task<(Result Result, string UserId)> CreateUserAsync(ApplicationUser user, string password)
     {
-        var user = new ApplicationUser
-        {
-            UserName = userName,
-            Email = userName,
-        };
-
         var result = await _userManager.CreateAsync(user, password);
 
         return (result.ToApplicationResult(), user.Id);
@@ -78,5 +74,22 @@ public class IdentityService : IIdentityService
         var result = await _userManager.DeleteAsync(user);
 
         return result.ToApplicationResult();
+    }
+
+    public async Task<ApplicationUser> FindByNameAsync(string userName)
+    {
+        var result = await _userManager.FindByNameAsync(userName);
+        return result;
+    }
+
+    public async Task<bool> CheckPasswordAsync(ApplicationUser user, string password)
+    {
+        return await _userManager.CheckPasswordAsync(user, password);
+    }
+
+    public async Task<IList<string>> GetRolesAsync(ApplicationUser user)
+    {
+        var result = await _userManager.GetRolesAsync(user);
+        return result;
     }
 }

@@ -1,14 +1,11 @@
 ﻿using Application.Features.Users.Dtos;
 using Application.Features.Users.Rules;
+using Application.Services;
 using AutoMapper;
 using Core.CrossCuttingConcerns.Exceptions;
-using Core.Persistence.Identity;
-using Core.Security.Dtos;
-using Core.Security.Hashing;
 using Core.Utilities.Messages;
 using Domain.Entities;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Users.Commands.RegisterUser
 {
-    public class RegisterUserCommand :IRequest<CreateUserDto>
+    public class RegisterUserCommand : IRequest<CreateUserDto>
     {
         public string Email { get; set; }
         public string Password { get; set; }
@@ -26,39 +23,36 @@ namespace Application.Features.Users.Commands.RegisterUser
         public class CreateUserCommandHandler : IRequestHandler<RegisterUserCommand, CreateUserDto>
         {
             private readonly IMapper _mapper;
-            private readonly UserBusinessRules userBusinessRules;
-            private readonly UserManager<ApplicationUser> _userManager;
-            private readonly RoleManager<IdentityRole> _roleManager;
+            private readonly UserBusinessRules _userBusinessRules;
+            private readonly IIdentityService _identityService;
 
             public CreateUserCommandHandler(
                 IMapper mapper,
                 UserBusinessRules userBusinessRules,
-                UserManager<ApplicationUser> userManager,
-                RoleManager<IdentityRole> roleManager)
+                IIdentityService identityService)
             {
                 _mapper = mapper;
-                this.userBusinessRules = userBusinessRules;
-                _userManager = userManager;
-                _roleManager = roleManager;
+                _userBusinessRules = userBusinessRules;
+                _identityService = identityService;
             }
 
             public async Task<CreateUserDto> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
             {
-                var userExists = await _userManager.FindByNameAsync(request.Username);
+                var userExists = await _identityService.FindByNameAsync(request.Username);
 
                 if (userExists != null)
                     throw new BusinessException(Messages.UsernameAlreadyTaken);
 
                 var userToAdd = _mapper.Map<ApplicationUser>(request);
                 userToAdd.SecurityStamp = Guid.NewGuid().ToString();
-                
-                var result = await _userManager.CreateAsync(userToAdd, request.Password);
 
-                if (!result.Succeeded)
+                var result = await _identityService.CreateUserAsync(userToAdd, request.Password);
+
+                if (!result.Result.Success)
                     throw new BusinessException("Kullanıcı oluşturulurken bir hata oluştu. Sonra tekrar deneyin.");
 
-                
-                var userToReturn =  _mapper.Map<CreateUserDto>(_userManager.FindByNameAsync(request.Username) );
+
+                var userToReturn = _mapper.Map<CreateUserDto>(_identityService.FindByNameAsync(request.Username));
                 return userToReturn;
             }
         }

@@ -1,18 +1,13 @@
 ﻿using Application.Features.Users.Dtos;
 using Application.Features.Users.Rules;
+using Application.Services;
 using Application.Services.AuthService;
 using AutoMapper;
 using Core.CrossCuttingConcerns.Exceptions;
-using Core.Persistence.Identity;
-using Core.Security.Dtos;
-using Core.Security.Hashing;
 using Core.Utilities.Messages;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -30,34 +25,34 @@ namespace Application.Features.Users.Commands.LoginUser
             private readonly IMapper _mapper;
             private readonly UserBusinessRules _userBusinessRules;
             private readonly IAuthService _authService;
-            private readonly UserManager<ApplicationUser> _userManager;
+            private readonly IIdentityService _identityService;
 
             public LoginUserCommandHandler(
                 IMapper mapper,
                 UserBusinessRules userBusinessRules,
                 IAuthService authService,
-                UserManager<ApplicationUser> userManager)
+                IIdentityService identityService)
             {
                 _mapper = mapper;
                 _userBusinessRules = userBusinessRules;
                 _authService = authService;
-                _userManager = userManager;
+                _identityService = identityService;
             }
             public async Task<LoginUserDto> Handle(LoginUserCommand request, CancellationToken cancellationToken)
             {
-                var userToCheck = await _userManager.FindByNameAsync(request.Username);
+                var userToCheck = await _identityService.FindByNameAsync(request.Username);
 
                 if (userToCheck is null)
                 {
                     throw new BusinessException(Messages.UserNotFound);
                 }
 
-                if (await _userManager.CheckPasswordAsync(userToCheck, request.Password))
+                if (await _identityService.CheckPasswordAsync(userToCheck, request.Password))
                 {
                     throw new BusinessException(Messages.PasswordError);
                 }
 
-                var userRoles = await _userManager.GetRolesAsync(userToCheck);
+                var userRoles = await _identityService.GetRolesAsync(userToCheck);
 
                 var accessToken = await _authService.CreateAccessToken(userToCheck);
 
