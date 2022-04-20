@@ -3,6 +3,7 @@ using Application.Features.Users.Rules;
 using Application.Services.AuthService;
 using AutoMapper;
 using Core.CrossCuttingConcerns.Exceptions;
+using Core.Persistence.Identity;
 using Core.Security.Dtos;
 using Core.Security.Hashing;
 using Core.Utilities.Messages;
@@ -29,13 +30,13 @@ namespace Application.Features.Users.Commands.LoginUser
             private readonly IMapper _mapper;
             private readonly UserBusinessRules _userBusinessRules;
             private readonly IAuthService _authService;
-            private readonly UserManager<IdentityUser> _userManager;
+            private readonly UserManager<ApplicationUser> _userManager;
 
             public LoginUserCommandHandler(
                 IMapper mapper,
                 UserBusinessRules userBusinessRules,
                 IAuthService authService,
-                UserManager<IdentityUser> userManager)
+                UserManager<ApplicationUser> userManager)
             {
                 _mapper = mapper;
                 _userBusinessRules = userBusinessRules;

@@ -16,7 +16,8 @@ namespace Application.Features.CourtCases.Commands.CreateCourtCase
     public class CreateCourtCaseCommand : IRequest<CreateCourtCaseDto>
     {
         public string Name { get; set; } = "";
-             
+        public string CaseNumber { get; set; }
+        public int CourtId { get; set; }
 
         public class CreateCourtCaseCommandHandler : IRequestHandler<CreateCourtCaseCommand, CreateCourtCaseDto>
         {
@@ -36,7 +37,8 @@ namespace Application.Features.CourtCases.Commands.CreateCourtCase
             public async Task<CreateCourtCaseDto> Handle(CreateCourtCaseCommand request, CancellationToken cancellationToken)
             {
                 var caseToCreate = _mapper.Map<CourtCase>(request);
-                caseToCreate.CreatedDate = DateTime.Now;
+                //TODO: check if this line of code is necessary, because we anyway have it in the constructor. and lets try a few more cont
+                //constructral issues.
                 caseToCreate.CaseStatus = CaseStatus.Open;
 
                 var result = await this._courtCaseRepository.AddAsync(caseToCreate);

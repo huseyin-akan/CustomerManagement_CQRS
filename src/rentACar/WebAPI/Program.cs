@@ -15,6 +15,8 @@ using Microsoft.IdentityModel.Tokens;
 using Core.Security.Encryption;
 using TokenOptions = Core.Security.Jwt.TokenOptions;
 using Persistence.Contexts;
+using Persistence.Identity;
+using Core.Persistence.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,7 +36,7 @@ builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
 
 //For Identity:
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<BaseDbContext>()
     .AddDefaultTokenProviders();
 

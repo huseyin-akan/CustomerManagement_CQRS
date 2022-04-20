@@ -1,4 +1,5 @@
 ﻿using Application.Features.CourtCases.Rules;
+using Application.Features.Todos.Rules;
 using Application.Features.Users.Rules;
 using Application.Services.AuthService;
 using Core.Application.Pipelines.Caching;
@@ -32,6 +33,7 @@ namespace Application
 
             services.AddScoped<UserBusinessRules>();
             services.AddScoped<CourtCaseBusinessRules>();
+            services.AddScoped<TodoBusinessRules>();
 
 
             services.AddScoped<IAuthService, AuthService>();

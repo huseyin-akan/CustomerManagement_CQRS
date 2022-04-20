@@ -2,6 +2,7 @@
 using Application.Features.Users.Rules;
 using AutoMapper;
 using Core.CrossCuttingConcerns.Exceptions;
+using Core.Persistence.Identity;
 using Core.Security.Dtos;
 using Core.Security.Hashing;
 using Core.Utilities.Messages;
@@ -26,13 +27,13 @@ namespace Application.Features.Users.Commands.RegisterUser
         {
             private readonly IMapper _mapper;
             private readonly UserBusinessRules userBusinessRules;
-            private readonly UserManager<IdentityUser> _userManager;
+            private readonly UserManager<ApplicationUser> _userManager;
             private readonly RoleManager<IdentityRole> _roleManager;
 
             public CreateUserCommandHandler(
                 IMapper mapper,
                 UserBusinessRules userBusinessRules,
-                UserManager<IdentityUser> userManager,
+                UserManager<ApplicationUser> userManager,
                 RoleManager<IdentityRole> roleManager)
             {
                 _mapper = mapper;
@@ -48,7 +49,7 @@ namespace Application.Features.Users.Commands.RegisterUser
                 if (userExists != null)
                     throw new BusinessException(Messages.UsernameAlreadyTaken);
 
-                var userToAdd = _mapper.Map<IdentityUser>(request);
+                var userToAdd = _mapper.Map<ApplicationUser>(request);
                 userToAdd.SecurityStamp = Guid.NewGuid().ToString();
                 
                 var result = await _userManager.CreateAsync(userToAdd, request.Password);

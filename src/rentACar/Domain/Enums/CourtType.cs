@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Enums
 {
-    public enum ServiceType
+    public enum CourtType
     {
-        DailyService = 1,
-        OneTimeService = 2
+        Hukuk = 1,
+        AgirCeza,
+        AsliyeCeza,
+        Idari,
+        Vergi
     }
 }

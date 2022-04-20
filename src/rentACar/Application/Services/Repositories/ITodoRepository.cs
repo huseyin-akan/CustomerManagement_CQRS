@@ -1,15 +1,15 @@
 ﻿using Core.Persistence.Repositories;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace Application.Services.Repositories
 {
-    public class AdditionalServiceRental
+    public interface ITodoRepository : IAsyncRepository<Todo>
     {
-        public int AdditionalServiceId { get; set; }
-        public int RentalId { get; set; }
+
     }
 }

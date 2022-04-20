@@ -11,7 +11,6 @@ namespace Application.Features.CourtCases.Dtos
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime CreatedDate { get; set; }
         public CaseStatus CaseStatus { get; set; }
     }
 }

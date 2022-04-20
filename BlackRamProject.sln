@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C818F381
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "corePackages", "corePackages", "{C740BA91-88D7-493F-9E69-75F696388266}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rentACar", "rentACar", "{04CBF7D0-AC04-4083-BB9F-52B67A1F6AC5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "blackRam", "blackRam", "{04CBF7D0-AC04-4083-BB9F-52B67A1F6AC5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\rentACar\Domain\Domain.csproj", "{592AEF3E-9FCF-4B6C-8391-6F0E9D48CCC7}"
 EndProject
@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.CrossCuttingConcerns",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Security", "src\corePackages\Core.Security\Core.Security.csproj", "{97792A06-32FA-4A4D-9472-2BD1272F5E49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Domain", "src\corePackages\Core.Domain\Core.Domain.csproj", "{C2EE4DFB-6F66-48AC-843F-623ED2A220E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Domain", "src\corePackages\Core.Domain\Core.Domain.csproj", "{C2EE4DFB-6F66-48AC-843F-623ED2A220E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

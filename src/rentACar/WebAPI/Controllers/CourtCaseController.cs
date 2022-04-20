@@ -9,7 +9,8 @@ namespace WebAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class CourtCaseController : BaseController
-    {        
+    {   
+        [Authorize(Roles = "add-courtcase")]
         [HttpPost("add")]
         public async Task<IActionResult> Add([FromBody] CreateCourtCaseCommand command)
         {

@@ -18,14 +18,8 @@ namespace Application.Features.Users.Profiles
     {
         public MappingProfiles()
         {
-            CreateMap<User, RegisterUserCommand>().ReverseMap();
             CreateMap<IdentityUser, RegisterUserCommand>().ReverseMap();
             CreateMap<IdentityUser, CreateUserDto>().ReverseMap();
-            CreateMap<User, UserForRegisterDto>().ReverseMap();
-            CreateMap<User, UserListDto>().ReverseMap();
-            CreateMap<User, CreateUserDto>().ReverseMap();
-            CreateMap<User, UpdateUserDto>().ReverseMap();
-            CreateMap<IPaginate<User>, UserListModel>().ReverseMap();
         }
     }
 }

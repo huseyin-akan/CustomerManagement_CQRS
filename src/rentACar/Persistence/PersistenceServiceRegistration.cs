@@ -26,6 +26,7 @@ namespace Persistence
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
 
             services.AddScoped<ICourtCaseRepository, CourtCaseRepository>();
+            services.AddScoped<ITodoRepository, TodoRepository>();
 
             return services;
         }

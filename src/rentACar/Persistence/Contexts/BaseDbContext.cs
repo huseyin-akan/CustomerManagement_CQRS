@@ -1,7 +1,5 @@
-﻿using Application.Services;
+﻿using Core.Persistence.Identity;
 using Domain.Entities;
-using Domain.Enums;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +25,9 @@ namespace Persistence.Contexts
         }
         
         public DbSet<CourtCase> CourtCases { get; set ; }
+        public DbSet<Court> Courts { get; set ; }
+        public DbSet<Todo> Todos { get; set ; }
+        public DbSet<Expense> Expenses { get; set ; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

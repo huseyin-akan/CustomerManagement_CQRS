@@ -1,4 +1,5 @@
-﻿using Core.Security.Jwt;
+﻿using Core.Persistence.Identity;
+using Core.Security.Jwt;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -13,10 +14,10 @@ namespace Application.Services.AuthService
     public class AuthService: IAuthService
     {
         private ITokenHelper _tokenHelper;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public AuthService( ITokenHelper tokenHelper,
-            UserManager<IdentityUser> userManager
+            UserManager<ApplicationUser> userManager
            )
         {
             _tokenHelper = tokenHelper;
@@ -30,7 +31,7 @@ namespace Application.Services.AuthService
 
         public async Task<AccessToken> CreateAccessToken(IdentityUser user)
         {
-            var userRoles = await _userManager.GetRolesAsync(user);
+            var userRoles = await _userManager.GetRolesAsync(user as ApplicationUser);
             var accessToken = await _tokenHelper.CreateToken(user, userRoles);
             return accessToken;
         }

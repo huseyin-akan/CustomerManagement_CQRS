@@ -38,6 +38,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Todos\Models\" />
+    <Folder Include="Features\Todos\Queries\" />
+    <Folder Include="Features\Todos\Tests\" />
     <Folder Include="Features\CourtCases\Models\" />
     <Folder Include="Features\CourtCases\Queries\" />
     <Folder Include="Features\CourtCases\Tests\" />
