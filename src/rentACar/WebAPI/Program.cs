@@ -26,16 +26,23 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers();
 
-//IoC Container Extension Metotları:
+//IoC Container Extension Methods:
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
 
+builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 //For Identity:
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireDigit = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+})
     .AddEntityFrameworkStores<BaseDbContext>()
     .AddDefaultTokenProviders();
 
-//appsettings.json dosyasından TokenOptions kısmını okuyup TokenOptions objeme map et ve değişkene ata.
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
 builder.Services.AddHttpContextAccessor();
@@ -63,21 +70,19 @@ builder.Services.AddAuthentication(options => {
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
 //Caching için in memory kullanmamızı sağlar.
 builder.Services.AddDistributedMemoryCache();
 
 //Caching için Reddis ile çalışmak istersen: 
 //builder.Services.AddStackExchangeRedisCache(options => options.Configuration= "localhost:6379");
+
 builder.Services.AddScoped<CacheSettings>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Dependency Injection Cycle'ı önlemek için.
-builder.Services.AddLazyResolution();
+//builder.Services.AddLazyResolution();
 
 builder.Services.AddLogging(config =>
 {

@@ -1,4 +1,4 @@
-﻿using Core.Domain;
+﻿using Domain.Common;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Events;
 
-internal class CaseCreatedEvent : DomainEvent
+public class CaseCreatedEvent : DomainEvent
 {
     public CaseCreatedEvent(CourtCase courtCase)
     {

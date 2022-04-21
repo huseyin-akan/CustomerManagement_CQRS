@@ -7,13 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Features\burdan kopyala\**" />
     <Compile Remove="Features\Transmissions\**" />
     <Compile Remove="Features\Users\Tests\**" />
-    <EmbeddedResource Remove="Features\burdan kopyala\**" />
     <EmbeddedResource Remove="Features\Transmissions\**" />
     <EmbeddedResource Remove="Features\Users\Tests\**" />
-    <None Remove="Features\burdan kopyala\**" />
     <None Remove="Features\Transmissions\**" />
     <None Remove="Features\Users\Tests\**" />
   </ItemGroup>
@@ -44,13 +41,13 @@
     <Folder Include="Features\CourtCases\Models\" />
     <Folder Include="Features\CourtCases\Queries\" />
     <Folder Include="Features\CourtCases\Tests\" />
-    <Folder Include="Features\burdan kopyalayalim\Models\" />
-    <Folder Include="Features\burdan kopyalayalim\Profiles\" />
-    <Folder Include="Features\burdan kopyalayalim\Queries\" />
-    <Folder Include="Features\burdan kopyalayalim\Rules\" />
-    <Folder Include="Features\burdan kopyalayalim\Tests\" />
-    <Folder Include="Features\burdan kopyalayalim\Dtos\" />
-    <Folder Include="Features\burdan kopyalayalim\Commands\" />
+    <Folder Include="Features\burdan kopyala\Models\" />
+    <Folder Include="Features\burdan kopyala\Profiles\" />
+    <Folder Include="Features\burdan kopyala\Queries\" />
+    <Folder Include="Features\burdan kopyala\Rules\" />
+    <Folder Include="Features\burdan kopyala\Tests\" />
+    <Folder Include="Features\burdan kopyala\Dtos\" />
+    <Folder Include="Features\burdan kopyala\Commands\" />
     <Folder Include="Features\Users\Queries\" />
   </ItemGroup>
 

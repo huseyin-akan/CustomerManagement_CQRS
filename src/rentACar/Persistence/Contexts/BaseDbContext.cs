@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +14,8 @@ using System.Threading.Tasks;
 
 namespace Persistence.Contexts
 {
-    public class BaseDbContext : IdentityDbContext<ApplicationUser>
+    //we specify the types that we use for User, Role and Primary Key
+    public class BaseDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
     {
         protected IConfiguration Configuration { get; set; }
         public BaseDbContext(DbContextOptions options,

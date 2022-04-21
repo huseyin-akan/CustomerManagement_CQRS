@@ -1,5 +1,5 @@
-﻿using Core.Domain;
-using Core.Persistence.Paging;
+﻿using Core.Persistence.Paging;
+using Domain.Common;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;

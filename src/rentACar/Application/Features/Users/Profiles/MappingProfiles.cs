@@ -1,9 +1,6 @@
 ﻿using Application.Features.Users.Commands.RegisterUser;
 using Application.Features.Users.Dtos;
-using Application.Features.Users.Models;
 using AutoMapper;
-using Core.Persistence.Paging;
-using Core.Security.Dtos;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using System;

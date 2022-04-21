@@ -1,5 +1,5 @@
 ﻿using Application.Services;
-using Core.Domain;
+using Domain.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
