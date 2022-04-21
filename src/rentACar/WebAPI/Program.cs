@@ -1,5 +1,4 @@
 ﻿using Application;
-using Core.Application.Extensions;
 using Core.Application.Pipelines.Caching;
 using Core.CrossCuttingConcerns.Exceptions;
 using Domain.Entities;
@@ -31,7 +30,6 @@ builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
 
 builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 //For Identity:
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {

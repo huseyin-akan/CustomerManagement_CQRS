@@ -1,4 +1,5 @@
-﻿using Domain.Common;
+﻿using Core.Persistence;
+using Domain.Common;
 using Domain.Enums;
 using System;
 using System.Collections.Generic;

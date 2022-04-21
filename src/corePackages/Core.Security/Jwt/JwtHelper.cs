@@ -9,7 +9,6 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Security.Extensions;
-using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace Core.Security.Jwt
