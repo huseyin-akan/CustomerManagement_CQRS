@@ -1,5 +1,6 @@
 ﻿using Core.Persistence;
 using Domain.Common;
+using Domain.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +9,30 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Todo : AuditableEntity
+    public class Todo : AuditableEntity, IHasDomainEvent
     {
         public string Title { get; set; } = "";
         public string Description { get; set; } = "";
         public DateTime? ExpirationDate { get; set; }
         public int CourtCaseId { get; set; }
+        
+        private bool _done;
+        public bool Done
+        {
+            get => _done;
+            set
+            {
+                if (value == true && _done == false)
+                {
+                    DomainEvents.Add(new TodoItemCompletedEvent(this));
+                }
+
+                _done = value;
+            }
+        }
 
         public virtual CourtCase CourtCase { get; set; }
+        public List<DomainEvent> DomainEvents { get; set; } = new List<DomainEvent>();
 
         public Todo()
         {
@@ -25,10 +42,9 @@ namespace Domain.Entities
         public Todo(int id, string title, string description, DateTime expirationDate) :this()
         {
             Id = id;
-            Title = Title;
-            Description = Description;
+            Title = title;
+            Description = description;
             ExpirationDate = expirationDate;
         }
-
     }
 }

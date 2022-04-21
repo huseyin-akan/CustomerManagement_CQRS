@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Todos.Dtos
 {
-    public class CreateTodoDto
+    public class UpdateTodoDto
     {
         public int Id { get; set; }
         public string Title { get; set; }

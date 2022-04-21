@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Persistence.Contexts;
 using Persistence.Identity;
 using Persistence.Repositories;
+using Persistence.Services;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -28,6 +29,7 @@ namespace Persistence
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
 
             services.AddTransient<IIdentityService, IdentityService>();
+            services.AddScoped<IDomainEventService, DomainEventService>();
 
             services.AddScoped<ICourtCaseRepository, CourtCaseRepository>();
             services.AddScoped<ITodoRepository, TodoRepository>();

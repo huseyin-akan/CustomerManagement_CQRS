@@ -8,9 +8,10 @@ namespace Core.Utilities.Messages
 {
     public static class Messages
     {
-        public static string CarAdded = "Car has been added successfully";
-        public static string CarNotFound = "Car with that id can not be found!!";
-        public static string CarUpdateFailed= "Car can not be updated. Something is wrong!!";
+        public static string TodoAdded = "Todo has been added successfully";
+        public static string TodoNotFound = "Todo with that id can not be found!!";
+        public static string TodoUpdateFailed = "Todo can not be updated. Something is wrong!!";
+
         public static string KilometerCantBeLess = "When ending rental car kiloemeter can not be less than the kilometer when it was rented!!";
 
         public static string ModelNotFound = "Model can not be found!!!";

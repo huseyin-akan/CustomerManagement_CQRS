@@ -4,6 +4,8 @@ using Application.Helpers;
 using Application.Services;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.CrossCuttingConcerns.Exceptions;
+using Core.Utilities.Messages;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -12,23 +14,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Todos.Commands.CreateTodoCommand
+namespace Application.Features.Todos.Commands.UpdateTodoCommand
 {    
-    public class CreateTodoCommand : IRequest<CreateTodoDto>
+    public class UpdateTodoCommand : IRequest<UpdateTodoDto>
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime? ExpirationDate { get; set; }
         public int CourtCaseId { get; set; }
+        public bool Done { get; set; }
 
-        public class CreateTodoCommandHandler : IRequestHandler<CreateTodoCommand, CreateTodoDto>
+        public class UpdateTodoCommandHandler : IRequestHandler<UpdateTodoCommand, UpdateTodoDto>
         {
             private readonly IMapper _mapper;
             private readonly TodoBusinessRules _todoBusinessRules;
             private readonly ITodoRepository _courtCaseRepository;
             private readonly ICurrentUserService _currentUserService;
 
-            public CreateTodoCommandHandler(IMapper mapper,
+            public UpdateTodoCommandHandler(IMapper mapper,
                 TodoBusinessRules todoBusinessRules,
                 ITodoRepository courtCaseRepository, ICurrentUserService currentUserService)
             {
@@ -38,15 +42,19 @@ namespace Application.Features.Todos.Commands.CreateTodoCommand
                 _currentUserService = currentUserService;
             }
 
-            public async Task<CreateTodoDto> Handle(CreateTodoCommand request, CancellationToken cancellationToken)
+            public async Task<UpdateTodoDto> Handle(UpdateTodoCommand request, CancellationToken cancellationToken)
             {
-                var todoToCreate = _mapper.Map<Todo>(request);
-                todoToCreate.Done = false;
-                todoToCreate = CurrentUserHelper<Todo>.HandleCreateCommand(todoToCreate, _currentUserService);
+                var todoToUpdate = await _courtCaseRepository.GetAsync(t => t.Id == request.Id);
+                if (todoToUpdate is null)
+                {
+                    throw new BusinessException(Messages.TodoNotFound);
+                }
+                var mappedTodo = _mapper.Map(request, todoToUpdate);
+                //mappedTodo = CurrentUserHelper<Todo>.HandleUpdateCommand(mappedTodo, _currentUserService);                
 
-                var result = await this._courtCaseRepository.AddAsync(todoToCreate);
+                var result = await _courtCaseRepository.UpdateAsync(mappedTodo);
 
-                return this._mapper.Map<CreateTodoDto>(result);
+                return _mapper.Map<UpdateTodoDto>(result);
             }
 
         }

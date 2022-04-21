@@ -4,6 +4,7 @@ using Application.Helpers;
 using Application.Services;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Persistence.Repositories;
 using Domain.Entities;
 using Domain.Enums;
 using MediatR;

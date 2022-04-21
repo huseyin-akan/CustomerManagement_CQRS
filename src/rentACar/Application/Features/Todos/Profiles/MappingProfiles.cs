@@ -1,4 +1,5 @@
 ﻿using Application.Features.Todos.Commands.CreateTodoCommand;
+using Application.Features.Todos.Commands.UpdateTodoCommand;
 using Application.Features.Todos.Dtos;
 using AutoMapper;
 using Domain.Entities;
@@ -16,6 +17,8 @@ namespace Application.Features.Todos.Profiles
         {
             CreateMap<Todo, CreateTodoCommand>().ReverseMap();
             CreateMap<Todo, CreateTodoDto>().ReverseMap();
+            CreateMap<Todo, UpdateTodoDto>().ReverseMap();
+            CreateMap<Todo, UpdateTodoCommand>().ReverseMap();
         }
     }
 }
