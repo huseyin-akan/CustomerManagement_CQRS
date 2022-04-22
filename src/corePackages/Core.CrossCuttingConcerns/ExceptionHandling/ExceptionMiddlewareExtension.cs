@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.CrossCuttingConcerns.Exceptions
+namespace Core.CrossCuttingConcerns.ExceptionHandling
 {
-    public static class ExceptionMiddlewareExceptions
+    public static class ExceptionMiddlewareExtension
     {
         public static void ConfigureCustomExceptionMiddleware(this IApplicationBuilder app)
         {

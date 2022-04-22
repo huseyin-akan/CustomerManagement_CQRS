@@ -3,7 +3,7 @@ using Application.Features.Users.Rules;
 using Application.Services;
 using AutoMapper;
 using Core.Application.Services;
-using Core.CrossCuttingConcerns.Exceptions;
+using Core.Domain.Exceptions;
 using Core.Utilities.Messages;
 using MediatR;
 using System;
@@ -41,7 +41,7 @@ namespace Application.Features.Users.Commands.LoginUser
 
                 if (userToCheck is null)
                 {
-                    throw new BusinessException(Messages.UserNotFound);
+                    throw new NotFoundException(Messages.UserNotFound);
                 }
 
                 if ((await _identityService.CheckPasswordAsync(userToCheck, request.Password)) != true)

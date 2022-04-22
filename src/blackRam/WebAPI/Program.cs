@@ -1,5 +1,4 @@
 ﻿using Application;
-using Core.CrossCuttingConcerns.Exceptions;
 using Domain.Entities;
 using Infrastructure;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +14,7 @@ using Core.Domain.Entities;
 using Core.Application.Pipelines.Caching;
 using Core.CrossCuttingConcerns.Logging.SeriLog;
 using Core.CrossCuttingConcerns.Logging.SeriLog.Loggers;
+using Core.CrossCuttingConcerns.ExceptionHandling;
 
 var builder = WebApplication.CreateBuilder(args);
 

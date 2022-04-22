@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.CrossCuttingConcerns.Exceptions
+namespace Core.CrossCuttingConcerns.ExceptionHandling
 {
-    public class BusinessProblemDetails : ProblemDetails
+    public class ValidationProblemDetails : ProblemDetails
     {
+        public object Errors { get; set; }
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this);

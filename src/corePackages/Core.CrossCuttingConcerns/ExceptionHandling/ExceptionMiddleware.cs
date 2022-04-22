@@ -1,4 +1,4 @@
-﻿using Core.CrossCuttingConcerns.Logging.SeriLog;
+﻿using Core.Domain.Exceptions;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
@@ -11,7 +11,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.CrossCuttingConcerns.Exceptions
+namespace Core.CrossCuttingConcerns.ExceptionHandling
 {
     public class ExceptionMiddleware
     {
@@ -40,9 +40,36 @@ namespace Core.CrossCuttingConcerns.Exceptions
 
             object errors = null;
 
-            if(exception.GetType() == typeof(ValidationException))
+            if (exception.GetType() == typeof(UnauthorizedAccessException))
             {
-                context.Response.StatusCode = (int) HttpStatusCode.BadRequest;
+                context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+
+                return context.Response.WriteAsync(new BusinessProblemDetails
+                {
+                    Status = StatusCodes.Status401Unauthorized,
+                    Type = "https://example.com/probs/unauthorized",
+                    Title = "Unauthorized",
+                    Detail = exception.Message,
+                    Instance = ""
+                }.ToString());
+            }
+
+            if (exception.GetType() == typeof(ForbiddenAccessException))
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+
+                return context.Response.WriteAsync(new BusinessProblemDetails
+                {
+                    Status = StatusCodes.Status403Forbidden,
+                    Type = "https://example.com/probs/business",
+                    Title = "Forbidden access",
+                    Detail = exception.Message,
+                    Instance = ""
+                }.ToString());
+            }
+            if (exception.GetType() == typeof(ValidationException))
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 errors = ((ValidationException)exception).Errors;
 
                 return context.Response.WriteAsync(new ValidationProblemDetails
@@ -53,7 +80,7 @@ namespace Core.CrossCuttingConcerns.Exceptions
                     Detail = (errors as IEnumerable<ValidationFailure>)?.FirstOrDefault()?.ToString(), //only the first error is enough
                     Instance = "",
                     Errors = errors
-                }.ToString() );
+                }.ToString());
             }
 
             if (exception.GetType() == typeof(BusinessException))
@@ -65,6 +92,21 @@ namespace Core.CrossCuttingConcerns.Exceptions
                     Status = StatusCodes.Status400BadRequest,
                     Type = "https://example.com/probs/business",
                     Title = "Business exception",
+                    Detail = exception.Message,
+                    Instance = ""
+                }.ToString());
+            }
+
+
+            if (exception.GetType() == typeof(NotFoundException))
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return context.Response.WriteAsync(new BusinessProblemDetails
+                {
+                    Status = StatusCodes.Status400BadRequest,
+                    Type = "https://example.com/probs/notfound",
+                    Title = "The specified resource was not found.",
                     Detail = exception.Message,
                     Instance = ""
                 }.ToString());
