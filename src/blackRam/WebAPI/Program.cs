@@ -2,13 +2,13 @@
 using Core.Application.Pipelines.Caching;
 using Core.CrossCuttingConcerns.Exceptions;
 using Domain.Entities;
-using Persistence;
+using Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Core.Security.Encryption;
 using TokenOptions = Core.Security.Jwt.TokenOptions;
-using Persistence.Contexts;
+using Infrastructure.Contexts;
 using Application.Services;
 using WebAPI.Services;
 
@@ -27,7 +27,7 @@ builder.Services.AddControllers();
 
 //IoC Container Extension Methods:
 builder.Services.AddApplicationServices();
-builder.Services.AddPersistenceServices(builder.Configuration);
+builder.Services.AddInfrastructureServices(builder.Configuration);
 
 builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
 

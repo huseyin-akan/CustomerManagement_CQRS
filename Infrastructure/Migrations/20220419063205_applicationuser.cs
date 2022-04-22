@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Persistence.Migrations
+namespace Infrastructure.Migrations
 {
     public partial class applicationuser : Migration
     {

@@ -5,10 +5,10 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Persistence.Contexts;
-using Persistence.Identity;
-using Persistence.Repositories;
-using Persistence.Services;
+using Infrastructure.Contexts;
+using Infrastructure.Identity;
+using Infrastructure.Repositories;
+using Infrastructure.Services;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,11 +16,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Persistence
+namespace Infrastructure
 {
-    public static class PersistenceServiceRegistration
+    public static class InfrastructureServiceRegistration
     {
-        public static IServiceCollection AddPersistenceServices(this IServiceCollection services,
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services,
             IConfiguration configuration)
         {
             services.AddDbContext<BaseDbContext>(options => 

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Persistence.Identity;
+namespace Infrastructure.Identity;
 
 public class IdentityService : IIdentityService
 {

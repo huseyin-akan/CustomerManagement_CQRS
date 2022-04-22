@@ -2,7 +2,7 @@
 using Core.Utilities.Results;
 using Microsoft.AspNetCore.Identity;
 
-namespace Persistence.Identity;
+namespace Infrastructure.Identity;
 
 public static class IdentityResultExtensions
 {

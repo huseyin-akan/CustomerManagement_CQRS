@@ -1,18 +1,18 @@
 ﻿using Application.Services.Repositories;
 using Core.Persistence.Repositories;
 using Domain.Entities;
-using Persistence.Contexts;
+using Infrastructure.Contexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Persistence.Repositories
+namespace Infrastructure.Repositories
 {
-    public class TodoRepository : EfRepositoryBase<Todo, BaseDbContext>, ITodoRepository
+    public class CourtCaseRepository : EfRepositoryBase<CourtCase, BaseDbContext>, ICourtCaseRepository
     {
-        public TodoRepository(BaseDbContext context) : base(context)
+        public CourtCaseRepository(BaseDbContext context) : base(context)
         {
 
         }

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Persistence.Services
+namespace Infrastructure.Services
 {
     public class DomainEventService : IDomainEventService
     {

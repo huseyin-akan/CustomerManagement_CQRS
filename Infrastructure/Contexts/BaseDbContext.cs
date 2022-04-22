@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using Persistence.Identity;
+using Infrastructure.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Persistence.Contexts
+namespace Infrastructure.Contexts
 {
     //we specify the types that we use for User, Role and Primary Key
     public class BaseDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
