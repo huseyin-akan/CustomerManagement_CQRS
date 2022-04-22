@@ -1,6 +1,7 @@
 ﻿using Application.Common.Models;
 using Application.Services;
-using Domain.Common;
+using Core.Application.Services;
+using Core.Domain.Common;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System;

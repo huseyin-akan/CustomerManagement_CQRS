@@ -2,6 +2,7 @@
 using Application.Features.Users.Rules;
 using Application.Services;
 using AutoMapper;
+using Core.Application.Services;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Utilities.Messages;
 using MediatR;

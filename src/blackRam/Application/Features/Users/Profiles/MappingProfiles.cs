@@ -1,6 +1,7 @@
 ﻿using Application.Features.Users.Commands.RegisterUser;
 using Application.Features.Users.Dtos;
 using AutoMapper;
+using Core.Domain.Entities;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using System;

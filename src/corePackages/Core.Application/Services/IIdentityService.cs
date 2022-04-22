@@ -1,14 +1,14 @@
-﻿using Core.Security.Jwt;
+﻿using Core.Domain;
+using Core.Domain.Entities;
+using Core.Security.Jwt;
 using Core.Utilities.Results;
-using Domain.Entities;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Services
+namespace Core.Application.Services
 {
     public interface IIdentityService
     {

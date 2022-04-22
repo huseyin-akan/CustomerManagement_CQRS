@@ -12,9 +12,9 @@ namespace Core.Application.Pipelines.Caching
 {
     public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>, ICachableRequest
     {
-        IDistributedCache _cache;
-        ILogger<CachingBehavior<TRequest, TResponse>> _logger;
-        CacheSettings _settings;
+        private readonly IDistributedCache _cache;
+        private readonly  ILogger<CachingBehavior<TRequest, TResponse>> _logger;
+        private readonly  CacheSettings _settings;
 
         public CachingBehavior(IDistributedCache cache, ILogger<CachingBehavior<TRequest,TResponse>> logger, CacheSettings settings)
         {

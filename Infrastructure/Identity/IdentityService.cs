@@ -1,4 +1,6 @@
 ﻿using Application.Services;
+using Core.Application.Services;
+using Core.Domain.Entities;
 using Core.Security.Jwt;
 using Core.Utilities.Results;
 using Domain.Entities;

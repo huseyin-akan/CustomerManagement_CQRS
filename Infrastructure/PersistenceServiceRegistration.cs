@@ -1,6 +1,5 @@
 ﻿using Application.Services;
 using Application.Services.Repositories;
-using Core.Application.Transaction;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +14,8 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Application.Pipelines.Transaction;
+using Core.Application.Services;
 
 namespace Infrastructure
 {

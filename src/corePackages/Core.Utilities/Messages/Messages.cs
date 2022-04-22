@@ -12,19 +12,7 @@ namespace Core.Utilities.Messages
         public static string TodoNotFound = "Todo with that id can not be found!!";
         public static string TodoUpdateFailed = "Todo can not be updated. Something is wrong!!";
 
-        public static string KilometerCantBeLess = "When ending rental car kiloemeter can not be less than the kilometer when it was rented!!";
-
         public static string ModelNotFound = "Model can not be found!!!";
-        public static string PaymentFailed = "Payment is not successful!!";
-
-        public static string ColorNotFound = "Color with that id can not be found!!";
-
-        public static string InvoiceNotAdded = "Invoice can not be created. Something is wrong!!";
-
-        public static string BrandNameExists = "Brand name already exists";
-        public static string BrandNotFound = "Brand doesnt exist.";
-
-        public static string ProCodeNotFound = "Böyle bir promosyon kodu bulunmamaktadır.";
 
         public static string UserNotFound = "User is not found";
         public static string PasswordError = "Password is wrong. Try again!!";
@@ -36,8 +24,5 @@ namespace Core.Utilities.Messages
         public static string TaxNumberAlreadyUsed = "This tax number was used before!!";
         public static string UsernameAlreadyTaken = "This username was taken already. Please choose another username!!";
         public static string EmailAlreadyTaken = "This email was taken already. If you forgot your password, try to reset it";
-
-        public static string TotalSumCalculationIsWrong = "The demanded total sum doesnt match the calculated total sum";
-
     }
 }

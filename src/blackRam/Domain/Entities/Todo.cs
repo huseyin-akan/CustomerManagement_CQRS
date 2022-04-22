@@ -1,5 +1,5 @@
-﻿using Core.Persistence;
-using Domain.Common;
+﻿using Core.Domain.Common;
+using Core.Persistence;
 using Domain.Events;
 using System;
 using System.Collections.Generic;

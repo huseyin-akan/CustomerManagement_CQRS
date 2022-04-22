@@ -4,6 +4,7 @@ using Application.Helpers;
 using Application.Services;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Services;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Utilities.Messages;
 using Domain.Entities;

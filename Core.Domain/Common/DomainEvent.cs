@@ -1,4 +1,4 @@
-﻿namespace Domain.Common;
+﻿namespace Core.Domain.Common;
 
 public interface IHasDomainEvent
 {

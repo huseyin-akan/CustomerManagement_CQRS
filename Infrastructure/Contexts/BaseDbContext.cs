@@ -1,6 +1,5 @@
 ﻿using Application.Services;
 using Core.Persistence;
-using Domain.Common;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -14,6 +13,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Domain.Entities;
+using Core.Application.Services;
+using Core.Domain.Common;
 
 namespace Infrastructure.Contexts
 {

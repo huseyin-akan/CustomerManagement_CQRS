@@ -1,11 +1,11 @@
-﻿using Domain.Common;
+﻿using Core.Domain.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Services
+namespace Core.Application.Services
 {
     public interface IDomainEventService
     {

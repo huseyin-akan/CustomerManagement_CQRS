@@ -4,6 +4,8 @@ using Application.Helpers;
 using Application.Services;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Logging;
+using Core.Application.Services;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -14,10 +16,10 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Todos.Commands.CreateTodoCommand
 {    
-    public class CreateTodoCommand : IRequest<CreateTodoDto>
+    public class CreateTodoCommand : IRequest<CreateTodoDto>, ILoggableRequest
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public string Title { get; set; } = "";
+        public string Description { get; set; } = "";
         public DateTime? ExpirationDate { get; set; }
         public int CourtCaseId { get; set; }
 

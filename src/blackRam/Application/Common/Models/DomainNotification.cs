@@ -1,4 +1,4 @@
-﻿using Domain.Common;
+﻿using Core.Domain.Common;
 using MediatR;
 using System;
 using System.Collections.Generic;

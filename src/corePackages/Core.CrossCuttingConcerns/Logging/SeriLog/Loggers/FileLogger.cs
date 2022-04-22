@@ -12,11 +12,8 @@ namespace Core.CrossCuttingConcerns.Logging.SeriLog.Loggers
 {
     public class FileLogger : LoggerServiceBase
     {
-        IConfiguration _configuration;
         public FileLogger(IConfiguration configuration)
         {
-            _configuration = configuration;
-
             var logConfig = configuration.GetSection("SeriLogConfigurations:FileLogConfiguration")
                                 .Get<FileLogConfiguration>() ??
                             throw new Exception(SerilogMessages.NullOptionsMessage);
@@ -28,7 +25,7 @@ namespace Core.CrossCuttingConcerns.Logging.SeriLog.Loggers
                     logFilePath,
                     rollingInterval: RollingInterval.Day,
                     retainedFileCountLimit: null,
-                    fileSizeLimitBytes: 5000000,
+                    fileSizeLimitBytes: 5000000,   //5 MB
                     outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {Message}{NewLine}{Exception}")
                 .CreateLogger();
         }
