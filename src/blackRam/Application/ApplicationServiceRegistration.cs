@@ -2,7 +2,9 @@
 using Application.Features.Todos.Rules;
 using Application.Features.Users.Rules;
 using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.ExceptionHandling;
 using Core.Application.Pipelines.Logging;
+using Core.Application.Pipelines.Performance;
 using Core.Application.Pipelines.Validation;
 using Core.CrossCuttingConcerns.Caching;
 using Core.CrossCuttingConcerns.Logging.SeriLog;
@@ -40,11 +42,13 @@ namespace Application
 
 
             services.AddSingleton<IMailService, MailKitMailService>();
-            
 
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));            
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));            
+           
 
             return services;
         }

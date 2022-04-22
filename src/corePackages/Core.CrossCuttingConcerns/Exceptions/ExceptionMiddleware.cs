@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Core.CrossCuttingConcerns.Logging.SeriLog;
+using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,9 +28,9 @@ namespace Core.CrossCuttingConcerns.Exceptions
             {
                 await _next(context);
             }
-            catch (Exception exception)
-            {
-                await HandleExceptionAsync(context, exception);
+            catch (Exception ex)
+            {                
+                await HandleExceptionAsync(context, ex);
             }
         }
 
@@ -49,7 +50,7 @@ namespace Core.CrossCuttingConcerns.Exceptions
                     Status = StatusCodes.Status400BadRequest,
                     Type = "https://example.com/probs/validation",
                     Title = "Validation error(s)",
-                    Detail = (errors as IEnumerable<ValidationFailure>)?.FirstOrDefault()?.ToString(), 
+                    Detail = (errors as IEnumerable<ValidationFailure>)?.FirstOrDefault()?.ToString(), //only the first error is enough
                     Instance = "",
                     Errors = errors
                 }.ToString() );
