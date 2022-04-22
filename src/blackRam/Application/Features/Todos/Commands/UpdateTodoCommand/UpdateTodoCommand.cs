@@ -1,13 +1,10 @@
 ﻿using Application.Features.Todos.Dtos;
 using Application.Features.Todos.Rules;
-using Application.Helpers;
-using Application.Services;
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Services;
 using Core.Domain.Exceptions;
 using Core.Utilities.Messages;
-using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -51,7 +48,6 @@ namespace Application.Features.Todos.Commands.UpdateTodoCommand
                     throw new NotFoundException(Messages.TodoNotFound);
                 }
                 var mappedTodo = _mapper.Map(request, todoToUpdate);
-                //mappedTodo = CurrentUserHelper<Todo>.HandleUpdateCommand(mappedTodo, _currentUserService);                
 
                 var result = await _courtCaseRepository.UpdateAsync(mappedTodo);
 

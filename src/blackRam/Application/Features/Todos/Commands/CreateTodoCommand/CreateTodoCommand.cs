@@ -1,7 +1,5 @@
 ﻿using Application.Features.Todos.Dtos;
 using Application.Features.Todos.Rules;
-using Application.Helpers;
-using Application.Services;
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Pipelines.Logging;
@@ -27,28 +25,25 @@ namespace Application.Features.Todos.Commands.CreateTodoCommand
         {
             private readonly IMapper _mapper;
             private readonly TodoBusinessRules _todoBusinessRules;
-            private readonly ITodoRepository _courtCaseRepository;
-            private readonly ICurrentUserService _currentUserService;
+            private readonly ITodoRepository _todoRepository;
 
             public CreateTodoCommandHandler(IMapper mapper,
                 TodoBusinessRules todoBusinessRules,
-                ITodoRepository courtCaseRepository, ICurrentUserService currentUserService)
+                ITodoRepository todoRepository)
             {
                 _mapper = mapper;
                 _todoBusinessRules = todoBusinessRules;
-                _courtCaseRepository = courtCaseRepository;
-                _currentUserService = currentUserService;
+                _todoRepository = todoRepository;
             }
 
             public async Task<CreateTodoDto> Handle(CreateTodoCommand request, CancellationToken cancellationToken)
             {
                 var todoToCreate = _mapper.Map<Todo>(request);
                 todoToCreate.Done = false;
-                todoToCreate = CurrentUserHelper<Todo>.HandleCreateCommand(todoToCreate, _currentUserService);
 
-                var result = await this._courtCaseRepository.AddAsync(todoToCreate);
+                var result = await _todoRepository.AddAsync(todoToCreate);
 
-                return this._mapper.Map<CreateTodoDto>(result);
+                return _mapper.Map<CreateTodoDto>(result);
             }
 
         }

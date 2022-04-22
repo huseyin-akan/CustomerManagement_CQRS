@@ -1,12 +1,9 @@
-﻿using Application.Services;
-using Core.Persistence;
+﻿using Core.Persistence;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using Infrastructure.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
