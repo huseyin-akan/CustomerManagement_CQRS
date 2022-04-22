@@ -13,6 +13,8 @@ using WebAPI.Services;
 using Core.Application.Services;
 using Core.Domain.Entities;
 using Core.Application.Pipelines.Caching;
+using Core.CrossCuttingConcerns.Logging.SeriLog;
+using Core.CrossCuttingConcerns.Logging.SeriLog.Loggers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -84,12 +86,15 @@ builder.Services.AddSwaggerGen();
 //Dependency Injection Cycle'ı önlemek için.
 //builder.Services.AddLazyResolution();
 
+//Default Debug and Console Logger.
 builder.Services.AddLogging(config =>
 {
    config.AddDebug();
    config.AddConsole();
 });
 
+//FileLogger - SeriLog implementation
+builder.Services.AddSingleton<LoggerServiceBase, FileLogger>();
 
 //Database'den gelen verinin birbirini çağırma döngüsüne girmesini engelliyor.
 builder.Services.AddControllers().AddNewtonsoftJson(options =>

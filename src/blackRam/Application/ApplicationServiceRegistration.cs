@@ -40,7 +40,7 @@ namespace Application
 
 
             services.AddSingleton<IMailService, MailKitMailService>();
-            services.AddSingleton<LoggerServiceBase, FileLogger>();
+            
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
