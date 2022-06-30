@@ -15,7 +15,7 @@ namespace Domain.Entities
         public string Description { get; set; } = "";
         public DateTime? ExpirationDate { get; set; }
         public int CourtCaseId { get; set; }
-        
+
         private bool _done;
         public bool Done
         {

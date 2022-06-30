@@ -1,4 +1,5 @@
-﻿using Application.Features.Users.Commands.LoginUser;
+﻿using Application.Features.Users.Commands.IssueClaimToUser;
+using Application.Features.Users.Commands.LoginUser;
 using Application.Features.Users.Commands.RegisterUser;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,14 @@ namespace WebAPI.Controllers
         {
             var registerResult = await Mediator.Send(command);
             return Ok(registerResult);
+        }
+
+        [HttpPost("assignrole")]
+        public async Task<IActionResult> AssignRole([FromBody] AssignRoleToUserCommand command)
+        {
+            var loginResult = await Mediator.Send(command);
+
+            return Ok(loginResult);
         }
     }
 }

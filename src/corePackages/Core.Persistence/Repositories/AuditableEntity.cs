@@ -17,6 +17,8 @@ public class AuditableEntity
 
     public string? LastModifiedBy { get; set; }
 
+    public bool Status { get; set; } = true;
+
     public AuditableEntity()
     {
     }

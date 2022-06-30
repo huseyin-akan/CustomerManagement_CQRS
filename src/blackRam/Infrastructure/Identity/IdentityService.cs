@@ -1,7 +1,9 @@
 ﻿using Application.Services;
 using Core.Application.Services;
 using Core.Domain.Entities;
+using Core.Domain.Exceptions;
 using Core.Security.Jwt;
+using Core.Utilities.Messages;
 using Core.Utilities.Results;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -103,5 +105,19 @@ public class IdentityService : IIdentityService
         var userRoles = await _userManager.GetRolesAsync(user);
         var accessToken = await _tokenHelper.CreateToken(user, userRoles);
         return accessToken;
+    }
+
+    public async Task<bool> AddUserToRole(string userId, string role)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+
+        if(user is null)
+        {
+            throw new NotFoundException(Messages.UserNotFound);
+        }
+
+        var result = await _userManager.AddToRoleAsync(user, role);
+
+        return result.Succeeded;
     }
 }

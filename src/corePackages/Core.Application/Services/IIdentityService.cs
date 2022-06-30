@@ -18,6 +18,8 @@ namespace Core.Application.Services
 
         Task<bool> AuthorizeAsync(string userId, string policyName);
 
+        Task<bool> AddUserToRole(string userId, string role);
+
         Task<(Result Result, string UserId)> CreateUserAsync(ApplicationUser user, string password);
 
         Task<Result> DeleteUserAsync(string userId);

@@ -22,7 +22,7 @@ namespace Application.Features.Todos.Commands.UpdateTodoCommand
         public DateTime? ExpirationDate { get; set; }
         public int CourtCaseId { get; set; }
         public bool Done { get; set; }
-
+        public bool Status { get; set; }
         public class UpdateTodoCommandHandler : IRequestHandler<UpdateTodoCommand, UpdateTodoDto>
         {
             private readonly IMapper _mapper;
