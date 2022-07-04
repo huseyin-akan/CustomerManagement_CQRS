@@ -31,7 +31,6 @@ namespace Core.Application.Pipelines.Logging
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-
             var logParameters = new List<LogParameter>();
 
             logParameters.Add(new LogParameter
@@ -54,7 +53,5 @@ namespace Core.Application.Pipelines.Logging
 
             return next().Result;
         }
-
-
     }
 }

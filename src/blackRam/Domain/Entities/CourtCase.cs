@@ -12,7 +12,7 @@ namespace Domain.Entities
 {
     public class CourtCase : AuditableEntity, IHasDomainEvent
     {
-        //Fields
+        //Props
         public string Name { get; set; } = "";
         public CaseStatus CaseStatus { get; set; } = CaseStatus.Open;
         public string CaseNumber { get; set; } = "";

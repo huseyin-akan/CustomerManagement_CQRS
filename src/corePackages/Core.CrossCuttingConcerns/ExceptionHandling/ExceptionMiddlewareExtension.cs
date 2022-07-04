@@ -9,7 +9,7 @@ namespace Core.CrossCuttingConcerns.ExceptionHandling
 {
     public static class ExceptionMiddlewareExtension
     {
-        public static void ConfigureCustomExceptionMiddleware(this IApplicationBuilder app)
+        public static void UseCustomExceptionMiddleware(this IApplicationBuilder app)
         {
             app.UseMiddleware<ExceptionMiddleware>();
         }

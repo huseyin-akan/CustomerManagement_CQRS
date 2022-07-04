@@ -1,5 +1,4 @@
 ﻿using Application;
-using Domain.Entities;
 using Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -7,7 +6,6 @@ using Microsoft.IdentityModel.Tokens;
 using Core.Security.Encryption;
 using TokenOptions = Core.Security.Jwt.TokenOptions;
 using Infrastructure.Contexts;
-using Application.Services;
 using WebAPI.Services;
 using Core.Application.Services;
 using Core.Domain.Entities;
@@ -15,6 +13,9 @@ using Core.Application.Pipelines.Caching;
 using Core.CrossCuttingConcerns.Logging.SeriLog;
 using Core.CrossCuttingConcerns.Logging.SeriLog.Loggers;
 using Core.CrossCuttingConcerns.ExceptionHandling;
+using Application.Features.Todos.Commands.CreateTodoCommand;
+using Application.Services.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -112,11 +113,33 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.ConfigureCustomExceptionMiddleware();
+app.UseCustomExceptionMiddleware();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+//A small demonstration of reading configuration files and using Minipal Apis
+var weatherResult = builder.Configuration["MiniApiDeneme:weather"];
+var tempResult = app.Configuration["MiniApiDeneme:temperature"];
+
+ConfigurationManager cm = new();
+cm.AddJsonFile("specialSettings.json"); //we can read any json files we want.
+var yearResult = cm["SpecialAppSettings:Year"];
+
+//minimal Api Get Example
+app.MapGet("/MiniApiGetTest", () => "Hello World, My name is MinimalApi. And today the weather is " + weatherResult
++ " and the temperature is " + tempResult + "\n"
++ "And we are in the year : " + yearResult);
+
+//minimal Api Post Example
+app.MapPost("/MiniApiPostTest/{input}", [Authorize] (string input, CreateTodoCommand command, ITodoRepository todoRepository) => //we get input variable from root and we get command object from body
+{
+    //we can also use Authorize attribute as shown above.
+    //ITodoRepository in the parameters are provided from services collection. This is how dependency injection work is minimal APIs.
+    Console.WriteLine("Post methpd in minimal API worked!!");
+    Console.WriteLine("And the comcrete instance of the dependency injected interface is : " + todoRepository.GetType() );
+});
 
 app.Run();
